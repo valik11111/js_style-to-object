@@ -14,9 +14,18 @@ function convertToObject(sourceString) {
   const inputFiltered = inputTrimmed.filter((item) => item.length >= 1);
 
   inputFiltered.forEach((item) => {
-    const coloneIndex = item.indexOf(':');
-    const key = item.slice(0, coloneIndex).trim();
-    const value = item.slice(coloneIndex + 1).trim();
+    const colonIndex = item.indexOf(':');
+
+    if (colonIndex === -1) {
+      return;
+    }
+
+    const key = item.slice(0, colonIndex).trim();
+    const value = item.slice(colonIndex + 1).trim();
+
+    if (!key || !value) {
+      return;
+    }
 
     styleSheet[key] = value;
   });
